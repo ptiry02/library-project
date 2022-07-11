@@ -1,5 +1,23 @@
+<form action='books' method='get'>
+  <label>Minimum rating:
+    <input type='number' name='minRating' />
+  </label>
+  <button>Filter</button>
+</form>
+
 <ul>
   {{#each booksArr}}
-    <li>{{this.title}}</li>
+    <section class='book-summary'>
+      <h2>{{title}}</h2>
+      <p>
+        Author:
+        {{author}}
+        <br />
+        Rating:
+        {{rating}}
+        <br />
+        <a href='/books/{{id}}'>More details</a>
+      </p>
+    </section>
   {{/each}}
 </ul>
