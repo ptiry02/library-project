@@ -5,6 +5,12 @@
   <button>Filter</button>
 </form>
 
+<br />
+
+<a href='/books/create'>Add a new book</a>
+
+<hr />
+
 <ul>
   {{#each booksArr}}
     <section class='book-summary'>
@@ -17,6 +23,11 @@
         {{rating}}
         <br />
         <a href='/books/{{id}}'>More details</a>
+        |
+        <a href='/books/{{this._id}}/edit'>Edit</a>
+        <form action='/books/delete' method='post'>
+          <button name='bookId' type='submit' value='{{id}}'>Delete</button>
+        </form>
       </p>
     </section>
   {{/each}}
