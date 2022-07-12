@@ -1,11 +1,13 @@
 const Book = require('../models/Book.model')
+const Author = require('../models/Author.model')
 
 const router = require('express').Router()
 
 router.get('/books', (req, res, next) => {
   Book.find()
+    .populate('author')
     .then((books) => {
-      const data = { booksArr: books }
+      const data = { books }
       if (req.query.minRating) {
         data.booksArr = books.filter((book) => book.rating <= req.query.minRating)
       }
@@ -23,7 +25,9 @@ router.post('/books/delete', (req, res) => {
 })
 
 router.get('/books/create', (req, res) => {
-  res.render('books/create-book')
+  Author.find().then((authors) => {
+    res.render('books/create-book', { authors })
+  })
 })
 
 router.post('/books/create', (req, res) => {
@@ -43,7 +47,9 @@ router.post('/books/create', (req, res) => {
 
 router.get('/books/:bookId', (req, res, next) => {
   Book.findById(req.params.bookId)
+    .populate('author')
     .then((book) => {
+      console.log('details: ', book)
       res.render('books/book-details', book)
     })
     .catch((err) => console.log(err))

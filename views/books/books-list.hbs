@@ -12,12 +12,12 @@
 <hr />
 
 <ul>
-  {{#each booksArr}}
+  {{#each books}}
     <section class='book-summary'>
       <h2>{{title}}</h2>
       <p>
         Author:
-        {{author}}
+        {{author.name}}
         <br />
         Rating:
         {{rating}}
@@ -26,7 +26,7 @@
         |
         <a href='/books/{{this._id}}/edit'>Edit</a>
         <form action='/books/delete' method='post'>
-          <button name='bookId' type='submit' value='{{id}}'>Delete</button>
+          <button style='border-color: red; color: red;' name='bookId' type='submit' value='{{id}}'>Delete</button>
         </form>
       </p>
     </section>

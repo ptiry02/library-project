@@ -3,7 +3,12 @@
     <input type='text' name='title' />
   </label>
   <label>Author:
-    <input type='text' name='author' />
+    <select name='author'>
+      <option value='unknown'>-- Select an author --</option>
+      {{#each authors}}
+        <option value={{id}}>{{name}}</option>
+      {{/each}}
+    </select>
   </label>
   <label>Rating:
     <input type='number' name='rating' />

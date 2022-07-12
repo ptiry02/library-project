@@ -4,7 +4,11 @@ const bookSchema = new Schema(
   {
     title: String,
     description: String,
-    author: String,
+    author:
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Author',
+      } | { type: String, enum: ['unknown'] },
     rating: Number,
   },
   {
