@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -9,4 +9,10 @@ a {
 
 h1 {
   color: 15px;
+}
+
+.warning {
+  border: 1px solid rgb(167, 111, 9);
+  background-color: rgb(235, 212, 170);
+  padding: 1rem;
 }

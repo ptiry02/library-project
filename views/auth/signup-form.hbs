@@ -1,0 +1,15 @@
+<h2>Register</h2>
+<form action='/signup' method='post'>
+  {{#if errorMessage}}
+    <p class='warning'>
+      {{errorMessage}}
+    </p>
+  {{/if}}
+  <label>Email:
+    <input type='email' name='email' required />
+  </label>
+  <label>Password:
+    <input type='password' name='password' required />
+  </label>
+  <button>Sign Up</button>
+</form>

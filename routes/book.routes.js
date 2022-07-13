@@ -18,8 +18,8 @@ router.get('/books', (req, res, next) => {
     })
 })
 
-router.post('/books/delete', (req, res) => {
-  Book.findByIdAndDelete(req.body.bookId).then(() => {
+router.post('/books/:id/delete', (req, res) => {
+  Book.findByIdAndDelete(req.params.id).then(() => {
     res.redirect('/books')
   })
 })

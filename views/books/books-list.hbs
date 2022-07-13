@@ -25,8 +25,8 @@
         <a href='/books/{{id}}'>More details</a>
         |
         <a href='/books/{{this._id}}/edit'>Edit</a>
-        <form action='/books/delete' method='post'>
-          <button style='border-color: red; color: red;' name='bookId' type='submit' value='{{id}}'>Delete</button>
+        <form action='/books/{{id}}/delete' method='post'>
+          <button class='delete-btns' style='border-color: red; color: red;' name='bookId' type='submit'>Delete</button>
         </form>
       </p>
     </section>
