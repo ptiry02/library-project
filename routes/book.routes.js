@@ -3,7 +3,7 @@ const Author = require('../models/Author.model')
 
 const router = require('express').Router()
 
-router.get('/books', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Book.find()
     .populate('author')
     .then((books) => {
@@ -18,19 +18,19 @@ router.get('/books', (req, res, next) => {
     })
 })
 
-router.post('/books/:id/delete', (req, res) => {
+router.post('/:id/delete', (req, res, next) => {
   Book.findByIdAndDelete(req.params.id).then(() => {
     res.redirect('/books')
   })
 })
 
-router.get('/books/create', (req, res) => {
+router.get('/create', (req, res, next) => {
   Author.find().then((authors) => {
     res.render('books/create-book', { authors })
   })
 })
 
-router.post('/books/create', (req, res) => {
+router.post('/create', (req, res, next) => {
   const newBook = {
     title: req.body.title,
     author: req.body.author,
@@ -45,7 +45,7 @@ router.post('/books/create', (req, res) => {
     .catch((err) => console.log(err))
 })
 
-router.get('/books/:bookId', (req, res, next) => {
+router.get('/:bookId', (req, res, next) => {
   Book.findById(req.params.bookId)
     .populate('author')
     .then((book) => {
@@ -55,7 +55,7 @@ router.get('/books/:bookId', (req, res, next) => {
     .catch((err) => console.log(err))
 })
 
-router.get('/books/:bookId/edit', (req, res) => {
+router.get('/:bookId/edit', (req, res, next) => {
   Book.findById(req.params.bookId)
     .then((book) => {
       res.render('books/edit-book', book)
@@ -66,7 +66,7 @@ router.get('/books/:bookId/edit', (req, res) => {
     })
 })
 
-router.post('/books/:bookId/edit', (req, res) => {
+router.post('/:bookId/edit', (req, res, next) => {
   Book.findByIdAndUpdate(req.params.bookId, {
     title: req.body.title,
     author: req.body.author,

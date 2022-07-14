@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = require('../models/User.model')
 
-router.get('/signup', async (req, res) => {
+router.get('/signup', async (req, res, next) => {
   res.render('auth/signup-form')
 })
 
@@ -34,14 +34,14 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-router.get('/login', async (req, res) => {
-  res.render('auth/login.form')
+router.get('/login', async (req, res, next) => {
+  res.render('auth/login-form')
 })
 
 router.post('/login', async (req, res, next) => {
   const { email, password } = req.body
   if (!email || !password) {
-    res.render('auth/signup-form', { errorMessage: 'Please provide email and password' })
+    res.render('auth/login-form', { errorMessage: 'Please provide email and password' })
     return
   }
   try {
@@ -49,6 +49,7 @@ router.post('/login', async (req, res, next) => {
     if (!userFromDB) {
       res.render('auth/login', { errorMessage: "User doesn't exist" })
     } else if (bcryptjs.compareSync(password, userFromDB.hashedPassword)) {
+      req.session.currentUser = userFromDB
       res.redirect('/user-profile')
     } else {
       res.render('auth/login', { errorMessage: 'Incorrect credentials.' })
@@ -59,8 +60,15 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-router.get('/user-profile', async (req, res) => {
-  res.render('auth/user-profile')
+router.post('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err)
+    res.redirect('/')
+  })
+})
+
+router.get('/user-profile', async (req, res, next) => {
+  res.render('auth/user-profile', { user: req.session.currentUser })
 })
 
 module.exports = router
